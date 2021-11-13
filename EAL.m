@@ -53,9 +53,6 @@ function EAL_OpeningFcn(hObject, ~, handles, varargin)
 % Choose default command line output for EAL
 handles.output = hObject;
 
-% Test change
-testChange = 2;
-
 WarnWave = [sin(1:.6:400), sin(1:.7:400), sin(1:.4:400)];
 handles.Audio = audioplayer(WarnWave, 22050);
 
