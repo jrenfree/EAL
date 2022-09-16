@@ -1,35 +1,35 @@
-function varargout = EAL(varargin)
-% EAL MATLAB code for EAL.fig
-%      EAL, by itself, creates a new EAL or raises the existing
+sfunction varargout = EAL_20210320(varargin)
+% EAL_20210320 MATLAB code for EAL_20210320.fig
+%      EAL_20210320, by itself, creates a new EAL_20210320 or raises the existing
 %      singleton*.
 %
-%      H = EAL returns the handle to a new EAL or the handle to
+%      H = EAL_20210320 returns the handle to a new EAL_20210320 or the handle to
 %      the existing singleton*.
 %
-%      EAL('CALLBACK',hObject,eventData,handles,...) calls the local
-%      function named CALLBACK in EAL.M with the given input arguments.
+%      EAL_20210320('CALLBACK',hObject,eventData,handles,...) calls the local
+%      function named CALLBACK in EAL_20210320.M with the given input arguments.
 %
-%      EAL('Property','Value',...) creates a new EAL or raises the
+%      EAL_20210320('Property','Value',...) creates a new EAL_20210320 or raises the
 %      existing singleton*.  Starting from the left, property value pairs are
-%      applied to the GUI before EAL_OpeningFcn gets called.  An
+%      applied to the GUI before EAL_20210320_OpeningFcn gets called.  An
 %      unrecognized property name or invalid value makes property application
-%      stop.  All inputs are passed to EAL_OpeningFcn via varargin.
+%      stop.  All inputs are passed to EAL_20210320_OpeningFcn via varargin.
 %
 %      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
 %      instance to run (singleton)".
 %
 % See also: GUIDE, GUIDATA, GUIHANDLES
 
-% Edit the above text to modify the response to help EAL
+% Edit the above text to modify the response to help EAL_20210320
 
-% Last Modified by GUIDE v2.5 12-Nov-2021 15:17:28
+% Last Modified by GUIDE v2.5 20-Mar-2021 08:08:55
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
     'gui_Singleton',  gui_Singleton, ...
-    'gui_OpeningFcn', @EAL_OpeningFcn, ...
-    'gui_OutputFcn',  @EAL_OutputFcn, ...
+    'gui_OpeningFcn', @EAL_20210320_OpeningFcn, ...
+    'gui_OutputFcn',  @EAL_20210320_OutputFcn, ...
     'gui_LayoutFcn',  [] , ...
     'gui_Callback',   []);
 if nargin && ischar(varargin{1})
@@ -43,14 +43,14 @@ else
 end
 
 
-function EAL_OpeningFcn(hObject, ~, handles, varargin)
+function EAL_20210320_OpeningFcn(hObject, ~, handles, varargin)
 % This function has no output args, see OutputFcn.
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-% varargin   command line arguments to EAL (see VARARGIN)
+% varargin   command line arguments to EAL_20210320 (see VARARGIN)
 
-% Choose default command line output for EAL
+% Choose default command line output for EAL_20210320
 handles.output = hObject;
 
 WarnWave = [sin(1:.6:400), sin(1:.7:400), sin(1:.4:400)];
@@ -78,7 +78,7 @@ ylabel(handles.axesRoughness, 'Roughness')
 guidata(hObject, handles);
 
 
-function varargout = EAL_OutputFcn(~, ~, handles)
+function varargout = EAL_20210320_OutputFcn(~, ~, handles)
 % varargout  cell array for returning output args (see VARARGOUT);
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -975,10 +975,38 @@ try
                 fclose(handles.KSyncDepth);   
             end
 
-            % Put logging range back to original setting
-            rString = ['<request><clientInfo><cid>' handles.ER60CLIENTID '</cid><rid>' int2str(handles.ER60RequestID) '</rid></clientInfo><type>invokeMethod</type><targetComponent>ParameterServer</targetComponent><method><SetParameter><paramName>SounderStorageManager/SampleRange</paramName><paramValue>' int2str(max(handles.normRange)) '</paramValue><paramType>3</paramType></SetParameter></method></request>' char(0)];
-            handles = sendrequest(handles, rString);
-            set(handles.lRange, 'String', max(handles.normRange))
+            
+            
+            
+            % Obtain variable indicating if the EK80 is using individual logging
+            % ranges for each transducer
+            rString = ['<request><clientInfo><cid>' handles.ER60CLIENTID '</cid><rid>' int2str(handles.ER60RequestID) '</rid></clientInfo><type>invokeMethod</type><targetComponent>ParameterServer</targetComponent><method><GetParameter><paramName>SounderStorageManager/IndividualChannelRecordingRange</paramName><time>0</time></GetParameter></method></request>' char(0)];
+            [handles, response] = sendrequest(handles, rString);
+            IndChannelFlag = str2double(readbetween('<value dt="3">','</value>',response));
+            
+            % If flag is 1, then EK80 is set to record to individual ranges for
+            % each transducer. So will need to cycle through each WBT and set the
+            % sample ranges
+            if IndChannelFlag
+                
+                % Cycle through frequencies
+                for i = 1:length(handles.freqs)
+                    rString = ['<request><clientInfo><cid>' handles.ER60CLIENTID '</cid><rid>' int2str(handles.ER60RequestID) '</rid></clientInfo><type>invokeMethod</type><targetComponent>ParameterServer</targetComponent><method><SetParameter><paramName>SounderStorageManager/' handles.ER60transceiverID{i} '_ES/Range</paramName><paramValue>' int2str(handles.normRange(i)) '</paramValue><paramType>3</paramType></SetParameter></method></request>' char(0)];
+                    handles = sendrequest(handles, rString);
+                end
+                                
+            % Otherwise, only need to set the single logging range, in which case
+            % we'll use the maximum of the logging ranges (should ideally all be
+            % the same if the user wants that option).
+            else
+                rString = ['<request><clientInfo><cid>' handles.ER60CLIENTID '</cid><rid>' int2str(handles.ER60RequestID) '</rid></clientInfo><type>invokeMethod</type><targetComponent>ParameterServer</targetComponent><method><SetParameter><paramName>SounderStorageManager/SampleRange</paramName><paramValue>' int2str(max(handles.normRange)) '</paramValue><paramType>3</paramType></SetParameter></method></request>' char(0)];
+                handles = sendrequest(handles, rString);                
+            end
+            
+%             % Put logging range back to original setting
+%             rString = ['<request><clientInfo><cid>' handles.ER60CLIENTID '</cid><rid>' int2str(handles.ER60RequestID) '</rid></clientInfo><type>invokeMethod</type><targetComponent>ParameterServer</targetComponent><method><SetParameter><paramName>SounderStorageManager/SampleRange</paramName><paramValue>' int2str(max(handles.normRange)) '</paramValue><paramType>3</paramType></SetParameter></method></request>' char(0)];
+%             handles = sendrequest(handles, rString);
+%             set(handles.lRange, 'String', max(handles.normRange))
 
             % Set the ping interval to the maximum rate
             rString = ['<request><clientInfo><cid>' handles.ER60CLIENTID '</cid><rid>' int2str(handles.ER60RequestID) '</rid></clientInfo><type>invokeMethod</type><targetComponent>ParameterServer</targetComponent><method><SetParameter><paramName>AcousticDeviceSynchroniser/Interval</paramName><paramValue>' int2str(PI*1000) '</paramValue><paramType>3</paramType></SetParameter></method></request>' char(0)];
@@ -1414,7 +1442,7 @@ else
         
         % Cycle through frequencies
         for i = 1:length(handles.freqs)
-            rString = ['<request><clientInfo><cid>' handles.ER60CLIENTID '</cid><rid>' int2str(handles.ER60RequestID) '</rid></clientInfo><type>invokeMethod</type><targetComponent>ParameterServer</targetComponent><method><SetParameter><paramName>SounderStorageManager/' handles.ER60transceiverID{i} '/Range</paramName><paramValue>' int2str(loggingRange(i)) '</paramValue><paramType>3</paramType></SetParameter></method></request>' char(0)];
+            rString = ['<request><clientInfo><cid>' handles.ER60CLIENTID '</cid><rid>' int2str(handles.ER60RequestID) '</rid></clientInfo><type>invokeMethod</type><targetComponent>ParameterServer</targetComponent><method><SetParameter><paramName>SounderStorageManager/' handles.ER60transceiverID{i} '_ES/Range</paramName><paramValue>' int2str(loggingRange(i)) '</paramValue><paramType>3</paramType></SetParameter></method></request>' char(0)];
             handles = sendrequest(handles, rString);
         end
         
@@ -1634,6 +1662,10 @@ for i = 1:length(handles.freqs)
     % change it to the set display range
     if get(handles.editDispRange, 'Value') && dispRange <= loggingRange(i)
              
+%         handles.freqs
+%         loggingRange(i)
+%         dispRange
+
         % Create string based on EK60 or EK80
         if get(handles.softwarePulldown, 'Value') == 1
             rString1 = ['<request><clientInfo><cid>' handles.ER60CLIENTID '</cid><rid>' int2str(handles.ER60RequestID) '</rid></clientInfo><type>invokeMethod</type><targetComponent>ParameterServer</targetComponent><method><SetParameter><paramName>ScreenManager/Windows/' handles.ER60transceiverID{i} '/Echogram/World2Echogram/RangeStart</paramName><paramValue>0</paramValue><paramType>5</paramType></SetParameter></method></request>' char(0)];
@@ -1732,7 +1764,7 @@ for i = 1:length(handles.freqs)
     
     % If using individual logging ranges, store
     if IndChannelFlag
-        rString = ['<request><clientInfo><cid>' handles.ER60CLIENTID '</cid><rid>' int2str(handles.ER60RequestID) '</rid></clientInfo><type>invokeMethod</type><targetComponent>ParameterServer</targetComponent><method><GetParameter><paramName>SounderStorageManager/' handles.ER60transceiverID{i} '/Range</paramName><time>0</time></GetParameter></method></request>' char(0)];
+        rString = ['<request><clientInfo><cid>' handles.ER60CLIENTID '</cid><rid>' int2str(handles.ER60RequestID) '</rid></clientInfo><type>invokeMethod</type><targetComponent>ParameterServer</targetComponent><method><GetParameter><paramName>SounderStorageManager/' handles.ER60transceiverID{i} '_ES/Range</paramName><time>0</time></GetParameter></method></request>' char(0)];
         [handles, response] = sendrequest(handles, rString);
         oldLoggingRange{i} = readbetween('<value dt="3">','</value>',response);
         
@@ -1776,7 +1808,7 @@ end
 % ranges separately
 if IndChannelFlag
     for i = 1:length(handles.freqs)
-        rString = ['<request><clientInfo><cid>' handles.ER60CLIENTID '</cid><rid>' int2str(handles.ER60RequestID) '</rid></clientInfo><type>invokeMethod</type><targetComponent>ParameterServer</targetComponent><method><SetParameter><paramName>SounderStorageManager/' handles.ER60transceiverID{i} '/Range</paramName><paramValue>' handles.settings.PassiveRange '</paramValue><paramType>3</paramType></SetParameter></method></request>' char(0)];
+        rString = ['<request><clientInfo><cid>' handles.ER60CLIENTID '</cid><rid>' int2str(handles.ER60RequestID) '</rid></clientInfo><type>invokeMethod</type><targetComponent>ParameterServer</targetComponent><method><SetParameter><paramName>SounderStorageManager/' handles.ER60transceiverID{i} '_ES/Range</paramName><paramValue>' handles.settings.PassiveRange '</paramValue><paramType>3</paramType></SetParameter></method></request>' char(0)];
         handles = sendrequest(handles, rString);
     end
             
@@ -1914,7 +1946,7 @@ fprintf('Changing logging range back to what it was\n')
 % ranges separately
 if IndChannelFlag
     for i = 1:length(handles.freqs)
-        rString = ['<request><clientInfo><cid>' handles.ER60CLIENTID '</cid><rid>' int2str(handles.ER60RequestID) '</rid></clientInfo><type>invokeMethod</type><targetComponent>ParameterServer</targetComponent><method><SetParameter><paramName>SounderStorageManager/' handles.ER60transceiverID{i} '/Range</paramName><paramValue>' oldLoggingRange{i} '</paramValue><paramType>3</paramType></SetParameter></method></request>' char(0)];
+        rString = ['<request><clientInfo><cid>' handles.ER60CLIENTID '</cid><rid>' int2str(handles.ER60RequestID) '</rid></clientInfo><type>invokeMethod</type><targetComponent>ParameterServer</targetComponent><method><SetParameter><paramName>SounderStorageManager/' handles.ER60transceiverID{i} '_ES/Range</paramName><paramValue>' oldLoggingRange{i} '</paramValue><paramType>3</paramType></SetParameter></method></request>' char(0)];
         handles = sendrequest(handles, rString);
     end
 else
@@ -2854,6 +2886,9 @@ try
     % Sort frequencies to ensure they are ordered correctly
     [handles.freqs, temp] = sort(handles.freqs);
     handles.ER60transceiverID = handles.ER60transceiverID(temp);
+    
+%     handles.ER60transceiverID([1 5]) = [];
+%     handles.freqs([1 5]) = [];
     
 catch ME
         
