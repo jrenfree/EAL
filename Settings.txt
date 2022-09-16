@@ -1,0 +1,53 @@
+// ER60/EK80 Remoting Settings
+IP Address = 192.168.1.149	% Local IP address defined in ER60/EK80 Remoting dialog
+Remote Port = 37655	% Local Port defined in ER60 Remoting dialog
+Name = Simrad	% Username defined in ER60/EK80 Users and Passwords dialog
+Password =	% Password for the above username
+
+// Max Logging Range Settings
+18 kHz = 750	% Maximum range to log 18 kHz data (m)
+38 kHz = 1000	% Maximum range to log 38 kHz data (m)
+70 kHz = 750	% Maximum range to log 70 kHz data (m)
+120 kHz = 750	% Maximum range to log 120 kHz data (m)
+200 kHz = 750	% Maximum range to log 200 kHz data (m)
+333 kHz = 750	% Maximum range to log 333 kHz data (m)
+
+// Ping Settings
+Processing buffer = 0.16	% Time buffer to account for ER60 processing (s)
+Bottom Offset = 60	% Logging range is bottom depth plus this offset (m)
+Manual Ping Interval Override Time = 5	% Override time to use manual ping interval (min)
+
+// Bottom Detection Settings
+External Depth Input IP = 	% Enter IP of system supplying DBT or DBS inputs, blank if none
+Detection Window Size = 15	% Detection window is last depth +- this range (m)
+
+// Deep Bottom Ping Settings
+Deep Bottom Ping Interval = 10	% Time between deep bottom detections (min)
+Deep Bottom Ping Range = 5000	% Range (m) of deep bottom pings, if no bathymetry file
+
+// Noise Measurement Settings
+Passive Noise Interval = 30	% Time between passive noise measurements (min)
+Number of passive pings = 3	% Number of passive pings to collect for noise measurement
+Passive Noise Range = 100	% Range (m) of passive noise pings
+
+// False Bottom Removal Settings
+Removal Range = 250	% Range above which false bottoms will be removed (m)
+
+// Display Settings
+18 kHz Range = 750	% Display range of 18 kHz echogram (m)
+38 kHz Range = 750	% Display range of 38 kHz echogram (m)
+70 kHz Range = 750	% Display range of 70 kHz echogram (m)
+120 kHz Range = 750	% Display range of 120 kHz echogram (m)
+200 kHz Range = 750	% Display range of 200 kHz echogram (m)
+333 kHz Range = 750	% Display range of 333 kHz echogram (m)
+
+// K-Sync Settings
+K-Sync IP = 157.237.60.169	% IP Address of K-Sync Synchronization Unit
+K-Sync UDP Port = 4502	% UDP port to sending K-Sync data (typically not changed)
+Non-ER60/EK80 Group Lengths = 0.02	% Time spent in groups not containing the ER60/EK80 (s)
+
+// ME70 Settings
+ME70 Remote Port = 37656	% Local Port defined in ME70 Remoting dialog
+ME70 Name = Simrad	% Username defined in ME70 Users and Passwords dialog
+ME70 Password =	% Password for the above username
+ME70 Connection Port = 2051	% UDP Port for comms to ME70 server (typically not changed)
