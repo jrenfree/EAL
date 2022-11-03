@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
-  <configuration build-checksum="2428287346" file="C:\Users\josiah.renfree\Documents\Experiments\EAL\Matlab Scripts\Git\EAL_App.prj" location="C:\Users\josiah.renfree\Documents\Experiments\EAL\Matlab Scripts\Git" name="EAL_App" preferred-package-location="C:\Users\josiah.renfree\Documents\Experiments\EAL\Matlab Scripts\Git\EAL_App\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.standalone" target-name="Application Compiler">
+  <configuration build-checksum="2428287346" file="C:\Users\ast\Desktop\EAL_App\EAL_App.prj" location="C:\Users\ast\Desktop\EAL_App" name="EAL_App" preferred-package-location="C:\Users\josiah.renfree\Documents\Experiments\EAL\Matlab Scripts\Git\EAL_App\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.standalone" target-name="Application Compiler">
     <param.appname>EAL_App</param.appname>
     <param.icon />
     <param.icons />
@@ -11,8 +11,8 @@
     <param.description>Modulates the EK80 display and recording ranges and ping interval based on bottom depth, to optimize sampling and avoid aliased seabed echoes (false bottoms).</param.description>
     <param.screenshot />
     <param.guid />
-    <param.installpath.string>SWFSC\EAL</param.installpath.string>
-    <param.installpath.combo>option.installpath.appdata</param.installpath.combo>
+    <param.installpath.string>EAL</param.installpath.string>
+    <param.installpath.combo>option.installpath.programfiles</param.installpath.combo>
     <param.logo />
     <param.install.notes />
     <param.target.install.notes />
@@ -48,6 +48,7 @@
       <param.version />
       <param.screenshot />
       <param.guid />
+      <param.installpath.combo />
       <param.logo />
       <param.install.notes />
       <param.target.install.notes />
@@ -73,13 +74,11 @@
     </fileset.main>
     <fileset.resources />
     <fileset.package />
-    <fileset.depfun>
-      <file>${PROJECT_ROOT}\Settings.txt</file>
-    </fileset.depfun>
+    <fileset.depfun />
     <build-deliverables>
-      <file location="${PROJECT_ROOT}\EAL_App\for_testing" name="EAL_App.exe" optional="false">C:\Users\josiah.renfree\Documents\Experiments\EAL\Matlab Scripts\Git\EAL_App\for_testing\EAL_App.exe</file>
-      <file location="${PROJECT_ROOT}\EAL_App\for_testing" name="splash.png" optional="false">C:\Users\josiah.renfree\Documents\Experiments\EAL\Matlab Scripts\Git\EAL_App\for_testing\splash.png</file>
-      <file location="${PROJECT_ROOT}\EAL_App\for_testing" name="readme.txt" optional="true">C:\Users\josiah.renfree\Documents\Experiments\EAL\Matlab Scripts\Git\EAL_App\for_testing\readme.txt</file>
+      <file location="${PROJECT_ROOT}\EAL_App\for_testing" name="splash.png" optional="false">C:\Users\ast\Desktop\EAL_App\EAL_App\for_testing\splash.png</file>
+      <file location="${PROJECT_ROOT}\EAL_App\for_testing" name="EAL_App.exe" optional="false">C:\Users\ast\Desktop\EAL_App\EAL_App\for_testing\EAL_App.exe</file>
+      <file location="${PROJECT_ROOT}\EAL_App\for_testing" name="readme.txt" optional="true">C:\Users\ast\Desktop\EAL_App\EAL_App\for_testing\readme.txt</file>
     </build-deliverables>
     <workflow />
     <matlab>
