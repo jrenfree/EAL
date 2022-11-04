@@ -4,5 +4,7 @@ The EK80 Adaptive Logger (EAL) interfaces with the Simrad EK80 software to modul
 
 ![alt text](https://github.com/jrenfree/EAL/blob/master/Figures/EAL_GUI.png "Image of EAL GUI")
 
+<img src="https://github.com/jrenfree/EAL/blob/master/Figures/EAL_GUI.png" width=200/>
+
 ## Installation
 
