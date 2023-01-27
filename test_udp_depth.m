@@ -2,7 +2,7 @@
 
 clear
 
-u = udpport("datagram", "IPV4", 'LocalPort', 53306);
+u = udpport("byte", "IPV4", 'LocalPort', 53306);
 configureMulticast(u, '224.1.2.3');
 
 pause(10)
