@@ -7,6 +7,13 @@ configureMulticast(u, '224.1.2.3');
 
 pause(10)
 
-save('test_udp.mat', "u")
+udp_params = get(u);
+
+datagramInfo = [];
+if u.NumDatagramsAvailable > 0
+    datagramInfo = read(u, u.NumDatagramsAvailable, 'char');
+end
+
+save('test_udp.mat', "udp_params", "datagramInfo")
 
 clear u
