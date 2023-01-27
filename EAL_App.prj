@@ -1,9 +1,9 @@
 <deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
-  <configuration build-checksum="2428287346" file="C:\Users\ast\Desktop\EAL_App\EAL_App.prj" location="C:\Users\ast\Desktop\EAL_App" name="EAL_App" preferred-package-location="C:\Users\josiah.renfree\Documents\Experiments\EAL\Matlab Scripts\Git\EAL_App\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.standalone" target-name="Application Compiler">
+  <configuration build-checksum="2428287346" file="C:\Users\josiah.renfree\Documents\EAL\EAL_App.prj" location="C:\Users\josiah.renfree\Documents\EAL" name="EAL_App" preferred-package-location="C:\Users\josiah.renfree\Documents\Experiments\EAL\Matlab Scripts\Git\EAL_App\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.standalone" target-name="Application Compiler">
     <param.appname>EAL_App</param.appname>
     <param.icon />
     <param.icons />
-    <param.version>1.0</param.version>
+    <param.version>1.1</param.version>
     <param.authnamewatermark>Josiah Renfree</param.authnamewatermark>
     <param.email>josiah.renfree@noaa.gov</param.email>
     <param.company>Southwest Fisheries Science Center</param.company>
@@ -45,7 +45,6 @@
     <unset>
       <param.icon />
       <param.icons />
-      <param.version />
       <param.screenshot />
       <param.guid />
       <param.installpath.combo />
@@ -76,9 +75,9 @@
     <fileset.package />
     <fileset.depfun />
     <build-deliverables>
-      <file location="${PROJECT_ROOT}\EAL_App\for_testing" name="splash.png" optional="false">C:\Users\ast\Desktop\EAL_App\EAL_App\for_testing\splash.png</file>
-      <file location="${PROJECT_ROOT}\EAL_App\for_testing" name="EAL_App.exe" optional="false">C:\Users\ast\Desktop\EAL_App\EAL_App\for_testing\EAL_App.exe</file>
-      <file location="${PROJECT_ROOT}\EAL_App\for_testing" name="readme.txt" optional="true">C:\Users\ast\Desktop\EAL_App\EAL_App\for_testing\readme.txt</file>
+      <file location="${PROJECT_ROOT}\EAL_App\for_testing" name="splash.png" optional="false">C:\Users\josiah.renfree\Documents\EAL\EAL_App\for_testing\splash.png</file>
+      <file location="${PROJECT_ROOT}\EAL_App\for_testing" name="EAL_App.exe" optional="false">C:\Users\josiah.renfree\Documents\EAL\EAL_App\for_testing\EAL_App.exe</file>
+      <file location="${PROJECT_ROOT}\EAL_App\for_testing" name="readme.txt" optional="true">C:\Users\josiah.renfree\Documents\EAL\EAL_App\for_testing\readme.txt</file>
     </build-deliverables>
     <workflow />
     <matlab>
