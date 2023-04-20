@@ -46,9 +46,9 @@ The main settings for the EAL are specified in the text file "C:\ProgramData\EAL
 
 ## Running the EAL
 
-Operation of the EAL is typically performed by:
+Operation of the EAL is typically performed by the following:
 
-   1. Open the EK80 software and beging pinging the transceivers in their desired operation
+   1. Open the EK80 software and begin pinging the transceivers in their desired operation
    2. Open the EAL application
    3. Choose the desired options, as specified in the EAL Interface section
    4. Define the appropriate settings in the EAL's Settings.txt file
