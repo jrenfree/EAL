@@ -1,9 +1,9 @@
 <deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
-  <configuration build-checksum="2428287346" file="C:\Users\josiah.renfree\Documents\EAL\EAL_App.prj" location="C:\Users\josiah.renfree\Documents\EAL" name="EAL_App" preferred-package-location="C:\Users\josiah.renfree\Documents\Experiments\EAL\Matlab Scripts\Git\EAL_App\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.standalone" target-name="Application Compiler">
+  <configuration build-checksum="816659794" file="C:\Users\josiah.renfree\Documents\EAL\EAL_App.prj" location="C:\Users\josiah.renfree\Documents\EAL" name="EAL_App" preferred-package-location="C:\Users\josiah.renfree\Documents\EAL\EAL_App\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.standalone" target-name="Application Compiler">
     <param.appname>EAL_App</param.appname>
     <param.icon />
     <param.icons />
-    <param.version>1.1</param.version>
+    <param.version>1.2</param.version>
     <param.authnamewatermark>Josiah Renfree</param.authnamewatermark>
     <param.email>josiah.renfree@noaa.gov</param.email>
     <param.company>Southwest Fisheries Science Center</param.company>
