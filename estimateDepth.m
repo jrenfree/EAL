@@ -183,6 +183,7 @@ function depthTimerFcn(obj)
 
 % Get latest handles structure
 handles = guidata(obj);
+drawnow nocallbacks
 
 try
     
@@ -233,7 +234,7 @@ try
             char(0)], 'char');
 
         % Delete all instruments
-        delete(instrfindall)
+        delete(udpportfind)
     end
         
 % If an error occurred
